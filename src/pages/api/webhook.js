@@ -1,9 +1,6 @@
 import Stripe from 'stripe';
 import { incrementProjectSignalCount } from '../../utils/notion.js';
 
-// Initialize Stripe client
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
-
 // Get the webhook secret from environment variables for signature verification.
 const webhookSecret = import.meta.env.STRIPE_WEBHOOK_SECRET;
 
@@ -12,6 +9,9 @@ const webhookSecret = import.meta.env.STRIPE_WEBHOOK_SECRET;
  * This endpoint listens for events from Stripe, primarily for successful payments.
  */
 export async function POST({ request }) {
+  // Initialize the Stripe client inside the handler.
+  const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY);
+
   const signature = request.headers.get('stripe-signature');
   // Stripe requires the raw request body to construct the event, so we read it as text.
   const body = await request.text();
@@ -35,7 +35,6 @@ export async function POST({ request }) {
     if (projectId) {
       console.log(`Webhook: Received successful checkout for project: ${projectId}`);
       // Asynchronously update the signal count in Notion.
-      // We don't need to wait for this to finish to respond to Stripe.
       incrementProjectSignalCount(projectId).catch(err => {
         console.error(`Webhook: Failed to process signal count for project ${projectId}:`, err);
       });
@@ -48,6 +47,5 @@ export async function POST({ request }) {
   }
 
   // 3. Return a 200 response to Stripe to acknowledge receipt of the event.
-  // If Stripe doesn't receive a 200, it will keep retrying the webhook.
   return new Response(JSON.stringify({ received: true }), { status: 200 });
 }
