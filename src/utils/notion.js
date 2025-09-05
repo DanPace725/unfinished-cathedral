@@ -1,6 +1,11 @@
-import { Client } from '@notionhq/client';
+import * as Notion from '@notionhq/client';
 
-const notion = new Client({
+// Log the entire imported module to see its structure during the Vercel build.
+console.log('DEBUG: Imported Notion module:', JSON.stringify(Notion, null, 2));
+
+// The 'Client' constructor should be a named export on the module.
+// If the log shows a 'default' key, we might need to use `new Notion.default.Client(...)`
+const notion = new Notion.Client({
   auth: import.meta.env.NOTION_TOKEN,
 });
 
@@ -48,6 +53,8 @@ export async function getProjects() {
   } catch (error) {
     console.error('DEBUG: Failed to fetch projects from Notion. This is likely an issue with your environment variables or Notion API permissions.');
     console.error('DEBUG: Full error message:', error.message);
+    // Also log the notion object to see if it was instantiated correctly
+    console.error('DEBUG: Notion client object state:', JSON.stringify(notion, null, 2));
     return [];
   }
 }
