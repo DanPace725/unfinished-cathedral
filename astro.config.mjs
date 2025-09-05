@@ -8,6 +8,7 @@ export default defineConfig({
   output: 'server', // Enable server-side rendering
   adapter: vercel(), // Add Vercel adapter
   integrations: [
+    tailwind(),
     react(), // Add React integration
   ],
  });

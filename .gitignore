@@ -9,6 +9,8 @@
 # Production
 /dist
 /build
+/.vercel
+/.astro
 
 # Logs
 npm-debug.log*
