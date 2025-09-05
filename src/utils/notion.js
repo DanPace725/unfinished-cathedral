@@ -2,10 +2,10 @@ import { Client } from '@notionhq/client';
 
 // Initialize the Notion client with the API token.
 const notion = new Client({
-  auth: import.meta.env.NOTION_TOKEN,
+  auth: process.env.NOTION_TOKEN,
 });
 
-const DATABASE_ID = import.meta.env.NOTION_DATABASE_ID;
+const DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
 const parseNotionProject = (page) => {
   const { properties } = page;
@@ -21,7 +21,7 @@ const parseNotionProject = (page) => {
 };
 
 export async function getProjects() {
-  if (!DATABASE_ID || !import.meta.env.NOTION_TOKEN) {
+  if (!DATABASE_ID || !process.env.NOTION_TOKEN) {
     console.error('DEBUG: NOTION_TOKEN or NOTION_DATABASE_ID is missing. Please check your .env file and Vercel environment variables.');
     return [];
   }

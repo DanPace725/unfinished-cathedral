@@ -11,4 +11,8 @@ export default defineConfig({
     tailwind(),
     react(), // Add React integration
   ],
- });
+  vite: {
+    ssr: { noExternal: ['@notionhq/client'] },
+    optimizeDeps: { exclude: ['@notionhq/client'] },
+  },
+});
