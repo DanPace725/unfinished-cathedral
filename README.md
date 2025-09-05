@@ -49,7 +49,16 @@ This creates a culture where creators perform certainty they don't feel and prom
 ## How It's Different
 
 | Traditional Platforms | Cathedral of Unfinished Dreams |
-|## Experimental Nature
+|---|---|
+| Fund specific projects | Fund ongoing curiosity |
+| Promise deliverables | Promise honest exploration |
+| Success = completion | Success = sustained attention |
+| Niche-focused | Explicitly cross-disciplinary |
+| Performance metrics | Coherence metrics |
+| Scale for growth | Scale for depth |
+| Creator-audience relationship | Collaborator-wanderer relationship |
+
+## Experimental Nature
 
 This platform is itself an unfinished project—a living experiment in alternative economic and creative structures. Everything about it is subject to change based on what we learn:
 
@@ -62,14 +71,6 @@ We're building this by using it, not by planning it to death. The platform embod
 
 **This is version 0.1 of an idea, not a finished product.**
 
----|---|
-| Fund specific projects | Fund ongoing curiosity |
-| Promise deliverables | Promise honest exploration |
-| Success = completion | Success = sustained attention |
-| Niche-focused | Explicitly cross-disciplinary |
-| Performance metrics | Coherence metrics |
-| Scale for growth | Scale for depth |
-| Creator-audience relationship | Collaborator-wanderer relationship |
 
 ## The Signal Economy
 
