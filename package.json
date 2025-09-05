@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@astrojs/react": "^4.3.0",
+    "@astrojs/vercel": "^8.2.1",
     "@astrojs/tailwind": "^6.0.2",
     "@tailwindcss/typography": "^0.5.16",
     "astro": "^5.13.5",
