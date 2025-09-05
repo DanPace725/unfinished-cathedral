@@ -1,11 +1,7 @@
-import * as Notion from '@notionhq/client';
+import { Client } from '@notionhq/client';
 
-// Log the entire imported module to see its structure during the Vercel build.
-console.log('DEBUG: Imported Notion module:', JSON.stringify(Notion, null, 2));
-
-// The 'Client' constructor should be a named export on the module.
-// If the log shows a 'default' key, we might need to use `new Notion.default.Client(...)`
-const notion = new Notion.Client({
+// Initialize the Notion client with the API token.
+const notion = new Client({
   auth: import.meta.env.NOTION_TOKEN,
 });
 
