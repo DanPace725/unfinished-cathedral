@@ -1,15 +1,16 @@
 import Stripe from 'stripe';
 
-// Initialize the Stripe client with the secret key from environment variables.
-const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-04-10', // It's good practice to pin the API version.
-});
-
 /**
  * Astro API route handler for creating a Stripe Checkout session.
  * This function is executed on the server.
  */
 export async function POST({ request }) {
+  // Initialize the Stripe client inside the handler.
+  // This ensures it's only created at runtime when env vars are available.
+  const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2024-04-10',
+  });
+
   // Validate that the request is a JSON request.
   if (request.headers.get("Content-Type") !== "application/json") {
     return new Response(JSON.stringify({ error: { message: "Invalid request: Content-Type must be application/json" } }), { status: 400 });
@@ -24,7 +25,6 @@ export async function POST({ request }) {
     }
 
     // Construct absolute URLs for the success and cancel pages.
-    // This is required by Stripe.
     const successUrl = new URL('/success', request.url).toString();
     const cancelUrl = new URL('/cancel', request.url).toString();
 
@@ -37,7 +37,6 @@ export async function POST({ request }) {
             currency: 'usd',
             product_data: {
               name: `Interest Signal: ${projectName}`,
-              // We can add more details here if needed, like an image or description.
             },
             unit_amount: 500, // $5.00 in cents
           },
@@ -47,8 +46,6 @@ export async function POST({ request }) {
       mode: 'payment',
       success_url: `${successUrl}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl,
-      // Use metadata to store the projectId. This is crucial for the webhook later
-      // to know which project's signal count to increment.
       metadata: {
         projectId: projectId,
       },
