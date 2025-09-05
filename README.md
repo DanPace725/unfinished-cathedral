@@ -1,6 +1,3 @@
-# unfinished-cathedral
-A platform for funding curiosity, not completion
-
 # Cathedral of Unfinished Dreams
 
 *A platform for funding curiosity, not completion*
