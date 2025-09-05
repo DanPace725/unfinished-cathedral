@@ -1,0 +1,42 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "*A platform for funding curiosity, not completion*",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanPace725/unfinished-cathedral.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DanPace725/unfinished-cathedral/issues"
+  },
+  "homepage": "https://github.com/DanPace725/unfinished-cathedral#readme",
+  "dependencies": {
+    "@notionhq/client": "^5.0.0",
+    "@stripe/stripe-js": "^7.9.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/typography": "^0.5.16",
+    "astro": "^5.13.5",
+    "tailwindcss": "^3.4.17"
+  }
+}

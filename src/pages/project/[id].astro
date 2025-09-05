@@ -1,0 +1,73 @@
+---
+// This is a dynamic Astro page. It uses `getStaticPaths` to generate a page for each project.
+
+import { getProjects } from '../../utils/notion.js';
+
+export async function getStaticPaths() {
+  // Fetch all projects from the Notion API.
+  const projects = await getProjects();
+
+  // Return a list of params and props for Astro to generate a static page for each project.
+  return projects.map((project) => {
+    return {
+      params: { id: project.id },
+      props: { project },
+    };
+  });
+}
+
+// Get the specific project data for this page from the props passed by getStaticPaths.
+import SignalButton from '../../components/SignalButton.jsx';
+const { project } = Astro.props;
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{project.name} | Cathedral of Unfinished Dreams</title>
+
+  <style is:global>
+    body {
+      background-color: #111827; /* Tailwind's gray-900 */
+      color: #f3f4f6; /* Tailwind's gray-100 */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <main class="container mx-auto px-4 py-12 md:py-16">
+    <div class="max-w-3xl mx-auto">
+      <header class="mb-8">
+        <a href="/" class="text-indigo-400 hover:text-indigo-300 mb-8 block text-sm">&larr; Back to all dreams</a>
+
+        <div class="flex items-center justify-between">
+          <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tighter">
+            {project.name}
+          </h1>
+          <span class="inline-block bg-gray-700 text-indigo-300 text-xs font-semibold px-2.5 py-1 rounded-full whitespace-nowrap">{project.status}</span>
+        </div>
+      </header>
+
+      <div class="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed">
+        <p>{project.description}</p>
+        <!-- In the future, this could render rich text or markdown from project.content -->
+      </div>
+
+      <footer class="mt-12 pt-8 border-t border-gray-700">
+        <div class="text-center">
+          <p class="text-white text-lg">Resonate with this idea?</p>
+          <p class="text-gray-400 text-sm mb-4">Send a $5 signal to support the exploration.</p>
+          <SignalButton
+            projectId={project.id}
+            projectName={project.name}
+            client:only="react"
+          />
+        </div>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
