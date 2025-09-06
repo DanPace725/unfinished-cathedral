@@ -1,24 +1,16 @@
 ---
-// This is a dynamic Astro page. It uses `getStaticPaths` to generate a page for each project.
+export const prerender = false;
 
-import { getProjects } from '../../utils/notion.js';
-
-export async function getStaticPaths() {
-  // Fetch all projects from the Notion API.
-  const projects = await getProjects();
-
-  // Return a list of params and props for Astro to generate a static page for each project.
-  return projects.map((project) => {
-    return {
-      params: { id: project.id },
-      props: { project },
-    };
-  });
-}
-
-// Get the specific project data for this page from the props passed by getStaticPaths.
 import SignalButton from '../../components/SignalButton.jsx';
-const { project } = Astro.props;
+import { getProjectById } from '../../utils/notion.js';
+
+const { id } = Astro.params;
+const project = await getProjectById(id);
+
+if (!project) {
+  // If project is not found or fetch fails, redirect to home
+  return Astro.redirect('/');
+}
 ---
 
 <html lang="en">

@@ -47,7 +47,7 @@ export async function getProjects() {
     console.log(`DEBUG: Successfully fetched and parsed ${projects.length} project(s) from Notion.`);
     return projects;
   } catch (error) {
-    console.error('DEBUG: Failed to fetch projects from Notion. This is likely an issue with your environment variables or Notion API permissions.');
+    console.error('DEBUG: Failed to fetch projects from Notion.');
     console.error('DEBUG: Full error message:', error.message);
     // Also log the notion object to see if it was instantiated correctly
     console.error('DEBUG: Notion client object state:', JSON.stringify(notion, null, 2));
@@ -73,5 +73,15 @@ export async function incrementProjectSignalCount(projectId) {
   } catch (error) {
     console.error(`Failed to increment signal count for project ${projectId}:`, error);
     return false;
+  }
+}
+
+export async function getProjectById(projectId) {
+  try {
+    const page = await notion.pages.retrieve({ page_id: projectId });
+    return parseNotionProject(page);
+  } catch (error) {
+    console.error(`Failed to fetch project ${projectId} from Notion:`, error?.message || error);
+    return null;
   }
 }
